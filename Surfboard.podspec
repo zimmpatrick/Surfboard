@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.screenshots  = "https://raw.github.com/MosheBerman/Surfboard/master/Screenshots/Intro.png", "https://raw.github.com/MosheBerman/Surfboard/master/Screenshots/Panels.png"
   s.author       = { "Moshe Berman" => "moshberm@gmail.com" }
   s.license 	 = 'MIT'
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '6.0'
   s.source       = { :git => "https://github.com/MosheBerman/Surfboard.git", :tag => "1.0.0"} 
   s.source_files  = 'Classes', 'Surfboard/SRFSurfboard/**/*.{h,m}'
   s.requires_arc = true
