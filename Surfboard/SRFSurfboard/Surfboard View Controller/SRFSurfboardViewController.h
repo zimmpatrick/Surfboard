@@ -39,12 +39,19 @@
 
 @property (nonatomic, strong) UIColor *backgroundColor;
 
+/**
+ *  A page control.
+ */
+
+@property (nonatomic, strong) UIPageControl *pageControl;
+
 #pragma mark - Initializers
 
+
 /**
- *  Instantiates a new surfboard with an array of panel objects.
+ *  Instantiates a new surfboard with a path to a JSON configuration file
  *
- *  @param configuration An array of panels.
+ *  @param path path to a JSON configuration file.
  *  @return An SRFSurfboardViewController.
  */
 
@@ -67,6 +74,15 @@
 
 - (instancetype)initWithPanels:(NSArray *)panels NS_DESIGNATED_INITIALIZER;
 
+/**
+ *  Instantiates a new surfboard with an array of panel configuration dictionaries.
+ *
+ *  @param configuration An rray of panel configuration dictionaries.
+ *  @return An SRFSurfboardViewController.
+ */
+
+- (instancetype)initWithConfiguration:(NSArray *)configuration;
+
 #pragma mark - Setting the Panels After Initializing
 
 /** ---
@@ -82,21 +98,5 @@
 
 - (void)setPanels:(NSArray *)panels;
 
-#pragma mark - Load Panels from Configuration
-
-/** ---
- *  @name Load Panels From Configuration
- *  ---
- */
-
-/**
- *  Loads panels out from a given path.
- *
- *  @param path The path from which to load the panel configuration.
- *
- *  @return An array of panels.
- */
-
-+ (NSArray *)panelsFromConfigurationAtPath:(NSString *)path;
 
 @end

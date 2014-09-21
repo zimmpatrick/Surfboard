@@ -36,12 +36,6 @@ static NSString *kSurfboardPanelIdentifier = @"com.mosheberman.surfboard-panel";
 @property (nonatomic, assign) NSInteger index;
 
 /**
- *  A page control.
- */
-
-@property (nonatomic, strong) UIPageControl *pageControl;
-
-/**
  *  A flag to control index updates during rotation.
  */
 
@@ -59,9 +53,9 @@ static NSString *kSurfboardPanelIdentifier = @"com.mosheberman.surfboard-panel";
  */
 
 /**
- *  Instantiates a new surfboard with an array of panel objects.
+ *  Instantiates a new surfboard with a path to a JSON configuration file
  *
- *  @param configuration An array of panels.
+ *  @param path path to a JSON configuration file.
  *  @return An SRFSurfboardViewController.
  */
 
@@ -79,6 +73,29 @@ static NSString *kSurfboardPanelIdentifier = @"com.mosheberman.surfboard-panel";
     
     return self;
 }
+
+/**
+ *  Instantiates a new surfboard with an array of panel configuration dictionaries.
+ *
+ *  @param configuration An rray of panel configuration dictionaries.
+ *  @return An SRFSurfboardViewController.
+ */
+
+- (instancetype)initWithConfiguration:(NSArray *)configuration
+{
+    
+    NSArray *panels = [SRFSurfboardViewController panelsFromConfiguration:configuration];
+    
+    self = [self initWithPanels:panels];
+    
+    if (self)
+    {
+        
+    }
+    
+    return self;
+}
+
 
 /**
  *  Instantiates a new surfboard with an array of panel objects.
@@ -392,6 +409,23 @@ static NSString *kSurfboardPanelIdentifier = @"com.mosheberman.surfboard-panel";
     return panels;
 }
 
++ (NSArray *)panelsFromConfiguration:(NSArray *)configuration
+{
+    NSMutableArray *panels = [[NSMutableArray alloc] initWithCapacity:configuration.count];
+
+    /**
+     *  Iterate the panel dictionaries and "inflate" them into objects.
+     */
+    
+    for (NSDictionary *panelDictionary in configuration)
+    {
+        SRFSurfboardPanel *panel = [[SRFSurfboardPanel alloc] initWithConfiguration:panelDictionary];
+        [panels addObject:panel];
+    }
+    
+    return panels;
+}
+
 #pragma mark - Rotation Handling
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -525,7 +559,7 @@ static NSString *kSurfboardPanelIdentifier = @"com.mosheberman.surfboard-panel";
     CGRect visibleRect = [self _visibleRect];
     
     CGFloat pageControlX = CGRectGetMidX(visibleRect);
-    CGFloat pageControlY = CGRectGetHeight(self.collectionView.bounds) - CGRectGetHeight(self.pageControl.frame);
+    CGFloat pageControlY = CGRectGetHeight(visibleRect) - CGRectGetHeight(self.pageControl.frame);
     
     CGPoint center = CGPointMake(pageControlX, pageControlY);
     
