@@ -680,4 +680,16 @@ static NSString *kSurfboardPanelIdentifier = @"com.mosheberman.surfboard-panel";
     }
 }
 
+- (NSUInteger)supportedInterfaceOrientations {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) {
+        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+    }
+    
+    return UIInterfaceOrientationMaskLandscape;
+}
+
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
 @end
